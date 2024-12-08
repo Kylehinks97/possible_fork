@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
 use App\Repository\SurfaceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,6 +33,12 @@ abstract class Surface
     #[ORM\OneToMany(targetEntity: Point::class, mappedBy: 'surface', cascade: ['persist', 'remove'])]
     private Collection $points;
 
+    public function __construct(string $name, array $points)
+    {
+        $this->name = $name;
+        $this->points = new ArrayCollection($points);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,7 +56,12 @@ abstract class Surface
         return $this;
     }
 
-    public function getPoints(): Collection
+    public function getPointsAsArray(): array
+    {
+        return $this->points->toArray();
+    }
+
+    public function getPointsAsCollection(): ArrayCollection
     {
         return $this->points;
     }
