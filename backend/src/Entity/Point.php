@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PointRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,6 +24,12 @@ class Point
     #[ORM\ManyToOne(targetEntity: Surface::class, inversedBy: 'points')]
     #[ORM\JoinColumn(name: 'surface_id', referencedColumnName: 'id', nullable: false)]
     private Surface $surface;
+
+    public function __construct(int $x, int $y)
+    {
+        $this->x = $x;
+        $this->y = $y;
+    }
 
     public function getId(): ?int
     {
