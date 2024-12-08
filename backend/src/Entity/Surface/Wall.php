@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Surface;
 
 use App\Repository\WallRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +14,7 @@ class Wall extends Surface
     #[ORM\Column]
     private int $id;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }

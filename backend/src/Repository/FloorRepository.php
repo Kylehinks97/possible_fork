@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\Surface\Surface;
+use App\Entity\Surface\Floor;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Surface>
+ * @extends ServiceEntityRepository<Floor>
  */
-class SurfaceRepository extends ServiceEntityRepository
+class FloorRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Surface::class);
+        parent::__construct($registry, Floor::class);
     }
 
     //    /**
-    //     * @return Surface[] Returns an array of Surface objects
+    //     * @return Floor[] Returns an array of Floor objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
+    //        return $this->createQueryBuilder('f')
+    //            ->andWhere('f.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
+    //            ->orderBy('f.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Surface
+    //    public function findOneBySomeField($value): ?Floor
     //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
+    //        return $this->createQueryBuilder('f')
+    //            ->andWhere('f.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()

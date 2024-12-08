@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Wall;
+use App\Entity\Surface\Wall;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

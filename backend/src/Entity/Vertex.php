@@ -1,16 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\PointRepository;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Surface\Surface;
+use App\Repository\VertexRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Represents a Point of a Surface.
+ * Represents a Vertex of a Surface.
  */
-#[ORM\Entity(repositoryClass: PointRepository::class)]
-class Point
+#[ORM\Entity(repositoryClass: VertexRepository::class)]
+class Vertex
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,7 +21,7 @@ class Point
 
     private int $y;
 
-    #[ORM\ManyToOne(targetEntity: Surface::class, inversedBy: 'points')]
+    #[ORM\ManyToOne(targetEntity: Surface::class, inversedBy: 'vertices')]
     #[ORM\JoinColumn(name: 'surface_id', referencedColumnName: 'id', nullable: false)]
     private Surface $surface;
 
@@ -31,7 +31,7 @@ class Point
         $this->y = $y;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -56,12 +56,12 @@ class Point
         $this->y = $y;
     }
 
-    public function getSurface(): \App\Entity\Surface
+    public function getSurface(): Surface
     {
         return $this->surface;
     }
 
-    public function setSurface(\App\Entity\Surface $surface): void
+    public function setSurface(Surface $surface): void
     {
         $this->surface = $surface;
     }

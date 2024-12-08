@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Point;
+use App\Entity\Vertex;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Point>
+ * @extends ServiceEntityRepository<Vertex>
  */
-class PointRepository extends ServiceEntityRepository
+class VertexRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Point::class);
+        parent::__construct($registry, Vertex::class);
     }
 
 //    /**
-//     * @return Point[] Returns an array of Point objects
+//     * @return Vertex[] Returns an array of Vertex objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -31,7 +31,7 @@ class PointRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Point
+//    public function findOneBySomeField($value): ?Vertex
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')
