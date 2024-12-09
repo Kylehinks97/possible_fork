@@ -48,7 +48,7 @@ class Room
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -88,7 +88,7 @@ class Room
         return $this;
     }
 
-    public function getBuilding(): ?Building
+    public function getBuilding(): Building
     {
         return $this->building;
     }
