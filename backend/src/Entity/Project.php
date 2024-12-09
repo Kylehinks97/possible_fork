@@ -21,10 +21,17 @@ class Project
     #[ORM\OneToMany(targetEntity: Building::class, mappedBy: 'project', orphanRemoval: true)]
     private Collection $buildings;
 
-    public function __construct(string $name, array $buildings)
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'projects')]
+    private Collection $users;
+
+    public function __construct(string $name, array $buildings, array $users)
     {
         $this->name = $name;
         $this->buildings = new ArrayCollection($buildings);
+        $this->users = new ArrayCollection($users);
     }
 
     public function getId(): int
@@ -63,6 +70,33 @@ class Project
     public function removeBuilding(Building $building): static
     {
         $this->buildings->removeElement($building);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeProject($this);
+        }
 
         return $this;
     }
