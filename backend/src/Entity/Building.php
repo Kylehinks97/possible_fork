@@ -24,6 +24,10 @@ class Building
     #[ORM\OneToMany(targetEntity: Room::class, mappedBy: 'building', orphanRemoval: true)]
     private Collection $rooms;
 
+    #[ORM\ManyToOne(inversedBy: 'buildings')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Project $project = null;
+
     public function __construct()
     {
         $this->rooms = new ArrayCollection();
@@ -67,6 +71,18 @@ class Building
     public function removeRoom(Room $room): static
     {
         $this->rooms->removeElement($room);
+
+        return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): static
+    {
+        $this->project = $project;
 
         return $this;
     }
