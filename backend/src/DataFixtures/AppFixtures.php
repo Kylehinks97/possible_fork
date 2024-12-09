@@ -9,9 +9,13 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $this->loadSurfaceFixtures($manager);
+    }
 
-        $manager->flush();
+    private function loadSurfaceFixtures(ObjectManager $manager): void
+    {
+        $surfaceFixtures = new SurfaceFixtures();
+
+        $surfaceFixtures->load($manager);
     }
 }
