@@ -22,6 +22,10 @@ class Room
     #[ORM\OneToMany(targetEntity: Surface::class, mappedBy: 'room', orphanRemoval: true)]
     private Collection $surfaces;
 
+    #[ORM\ManyToOne(inversedBy: 'room')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Building $building;
+
     public function __construct(string $name, array $surfaces)
     {
         $this->name = $name;
@@ -80,6 +84,18 @@ class Room
     public function removeSurface(Surface $surface): static
     {
         $this->surfaces->removeElement($surface);
+
+        return $this;
+    }
+
+    public function getBuilding(): ?Building
+    {
+        return $this->building;
+    }
+
+    public function setBuilding(?Building $building): static
+    {
+        $this->building = $building;
 
         return $this;
     }
