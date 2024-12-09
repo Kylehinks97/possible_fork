@@ -28,9 +28,10 @@ class Building
     #[ORM\JoinColumn(nullable: false)]
     private ?Project $project = null;
 
-    public function __construct()
+    public function __construct(string $name, array $rooms)
     {
-        $this->rooms = new ArrayCollection();
+        $this->name = $name;
+        $this->rooms = new ArrayCollection($rooms);
     }
 
     public function getId(): ?int
@@ -38,7 +39,7 @@ class Building
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -50,9 +51,6 @@ class Building
         return $this;
     }
 
-    /**
-     * @return Collection<int, Room>
-     */
     public function getRooms(): Collection
     {
         return $this->rooms;
@@ -75,12 +73,12 @@ class Building
         return $this;
     }
 
-    public function getProject(): ?Project
+    public function getProject(): Project
     {
         return $this->project;
     }
 
-    public function setProject(?Project $project): static
+    public function setProject(Project $project): static
     {
         $this->project = $project;
 
