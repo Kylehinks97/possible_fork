@@ -20,6 +20,9 @@ class Surface
     #[ORM\Column]
     private int $id;
 
+    #[ORM\Column(length: 255, nullable: false)]
+    private string $name;
+
     #[ORM\ManyToOne(targetEntity: SurfaceType::class)]
     #[ORM\JoinColumn(name: 'type_id', referencedColumnName: 'id', nullable: false)]
     private SurfaceType $type;
@@ -34,8 +37,10 @@ class Surface
     #[ORM\JoinColumn(nullable: false)]
     private Room $room;
 
-    public function __construct(array $vertices, array $edges)
+    public function __construct(string $name, SurfaceType $type, array $vertices, array $edges)
     {
+        $this->name = $name;
+        $this->type = $type;
         $this->vertices = new ArrayCollection($vertices);
         $this->edges = new ArrayCollection($edges);
     }

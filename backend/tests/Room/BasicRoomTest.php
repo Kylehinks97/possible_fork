@@ -5,6 +5,7 @@ namespace App\Tests\Room;
 use App\Entity\Edge;
 use App\Entity\Room;
 use App\Entity\Surface\Surface;
+use App\Entity\Surface\SurfaceType;
 use App\Entity\Vertex;
 use PHPUnit\Framework\TestCase;
 use function PHPUnit\Framework\assertContains;
@@ -45,9 +46,22 @@ class BasicRoomTest extends TestCase
             new Edge(150),
         ];
 
+        $ceilingType = new SurfaceType('Ceiling');
+        $floorType = new SurfaceType('Floor');
+
         $surfaces = [
-          new Surface($firstVertices, $firstEdges),
-          new Surface($secondVertices, $secondEdges),
+          new Surface(
+              'Test surface one',
+              $ceilingType,
+              $firstVertices,
+              $firstEdges
+          ),
+          new Surface(
+              'Test surface two',
+              $floorType,
+              $secondVertices,
+              $secondEdges
+          ),
         ];
 
         $this->room = new Room('Test room', $surfaces);
