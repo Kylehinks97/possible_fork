@@ -17,8 +17,10 @@ class Vertex
     #[ORM\Column]
     private int $id;
 
+    #[ORM\Column(type: 'integer')]
     private int $x;
 
+    #[ORM\Column(type: 'integer')]
     private int $y;
 
     #[ORM\ManyToOne(targetEntity: Surface::class, inversedBy: 'vertices')]
