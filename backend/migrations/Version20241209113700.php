@@ -14,7 +14,7 @@ final class Version20241209113700 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add Room and it\'s relation to Surface';
     }
 
     public function up(Schema $schema): void
@@ -32,11 +32,10 @@ final class Version20241209113700 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE main.surface DROP FOREIGN KEY FK_SURFACE_ROOM');
+        $this->addSql('ALTER TABLE main.surface DROP CONSTRAINT FK_SURFACE_ROOM');
 
         $this->addSql('ALTER TABLE main.surface DROP room_id');
 
         $this->addSql('DROP TABLE main.room');
     }
-
 }
