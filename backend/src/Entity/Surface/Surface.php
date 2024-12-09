@@ -10,28 +10,18 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 
-/**
- * Represents an abstract Surface entity that can be extended by specific types like Wall, Ceiling, Floor, Door and Window.
- */
 #[ORM\Table(name: 'surface')]
-#[ORM\InheritanceType('JOINED')]
-#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
-#[ORM\DiscriminatorMap([
-    'surface' => 'Surface',
-    'wall' => 'Wall',
-    'ceiling' => 'Ceiling',
-    'floor' => 'Floor'
-])]
 #[ORM\Entity(repositoryClass: SurfaceRepository::class)]
-abstract class Surface
+class Surface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private int $id;
 
-    #[ORM\Column(length: 255)]
-    private string $name;
+    #[ORM\ManyToOne(targetEntity: SurfaceType::class)]
+    #[ORM\JoinColumn(name: 'type_id', referencedColumnName: 'id', nullable: false)]
+    private SurfaceType $type;
 
     #[ORM\OneToMany(targetEntity: Vertex::class, mappedBy: 'surface', cascade: ['persist', 'remove'])]
     private Collection $vertices;
@@ -39,9 +29,8 @@ abstract class Surface
     #[ORM\OneToMany(targetEntity: Edge::class, mappedBy: 'edge', cascade: ['persist', 'remove'])]
     private Collection $edges;
 
-    public function __construct(string $name, array $vertices, array $edges)
+    public function __construct(array $vertices, array $edges)
     {
-        $this->name = $name;
         $this->vertices = new ArrayCollection($vertices);
         $this->edges = new ArrayCollection($edges);
     }
@@ -49,18 +38,6 @@ abstract class Surface
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getVerticesAsArray(): array

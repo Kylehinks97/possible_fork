@@ -4,14 +4,13 @@ namespace App\Tests\Surface;
 
 use App\Entity\Edge;
 use App\Entity\Surface\Surface;
-use App\Entity\Surface\Wall;
 use App\Entity\Vertex;
 use PHPUnit\Framework\TestCase;
 use function PHPUnit\Framework\assertEquals;
 
 class BasicSurfaceTest extends TestCase
 {
-    private Wall $wall;
+    private Surface $surface;
     private array $vertices;
     private array $edges;
 
@@ -31,7 +30,7 @@ class BasicSurfaceTest extends TestCase
             new Edge(100),
         ];
 
-        $this->wall = new Wall('Master Bedroom', $this->vertices, $this->edges);
+        $this->surface = new Surface($this->vertices, $this->edges);
     }
 
     public function test_basic_surface_area_calculation(): void
