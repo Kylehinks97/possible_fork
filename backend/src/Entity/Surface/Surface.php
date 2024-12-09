@@ -3,6 +3,7 @@
 namespace App\Entity\Surface;
 
 use App\Entity\Edge;
+use App\Entity\Room;
 use App\Entity\Vertex;
 use App\Repository\SurfaceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -28,6 +29,10 @@ class Surface
 
     #[ORM\OneToMany(targetEntity: Edge::class, mappedBy: 'edge', cascade: ['persist', 'remove'])]
     private Collection $edges;
+
+    #[ORM\ManyToOne(inversedBy: 'surfaces')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Room $room;
 
     public function __construct(array $vertices, array $edges)
     {
@@ -82,5 +87,17 @@ class Surface
         }
 
         return abs($area) / 2.0;
+    }
+
+    public function getRoom(): ?Room
+    {
+        return $this->room;
+    }
+
+    public function setRoom(?Room $room): static
+    {
+        $this->room = $room;
+
+        return $this;
     }
 }
